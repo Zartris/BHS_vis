@@ -32,8 +32,15 @@ set(THE_EXE_NAME bhs_visualization)
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     message("Building in debug mode")
     add_definitions(-DDEBUG -URELEASE)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -g")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g")
+    # Google sanitizers (only one can be used at a time):
+    #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g")
+    #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=memory -g")
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=thread -g")
+    #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak -g")
+    #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined -g")
+
     # comment this if you want to remove the verbose output
     #    add_definitions(-DVERBOSE)
 elseif (CMAKE_BUILD_TYPE STREQUAL "Release")

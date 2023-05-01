@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "REngine/Application.hpp"
+#include "REngine/BHSApplication.h"
 #include "bhs_game/models/AirportLogistic.hpp"
 
 class DemoLayer : public REngine::Layer {
@@ -23,18 +24,20 @@ public:
 class BHSGameLayer : public REngine::Layer {
 public:
 
-    virtual void OnAttach() {
+    virtual void OnAttach() override {
         std::cout << "Attach" << std::endl;
-
     }
 
-    virtual void OnDetach() {
+    virtual void OnDetach() override {
         std::cout << "Detach" << std::endl;
     }
 
     virtual void OnUpdate(float ts) override {
         // Update game logic
         std::cout << "Update: " << ts << std::endl;
+        REngine::Application *app = &REngine::Application::Get();
+        app->getGameState();
+
 
     }
 
@@ -51,7 +54,7 @@ REngine::Application *REngine::CreateApplication(int argc, char **argv) {
     REngine::ApplicationSpecification spec;
     spec.Name = "REngine window name";
 
-    REngine::Application *app = new REngine::Application(spec);
+    REngine::BHSApplication *app = new REngine::BHSApplication(spec);
     app->PushLayer<DemoLayer>();
     app->PushLayer<BHSGameLayer>();
     return app;
