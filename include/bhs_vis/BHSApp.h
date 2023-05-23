@@ -23,6 +23,7 @@ public:
 
 class BHSGameLayer : public REngine::Layer {
 public:
+    float time_remaining = 0.0f;
 
     virtual void OnAttach() override {
         std::cout << "Attach" << std::endl;
@@ -34,17 +35,27 @@ public:
 
     virtual void OnUpdate(float ts) override {
         // Update game logic
-        std::cout << "Update: " << ts << std::endl;
-        REngine::Application *app = &REngine::Application::Get();
-        app->getGameState();
-
-
+        std::cout << "Update: " << ts << "s" << std::endl;
+        REngine::BHSApplication *app = &REngine::BHSApplication::Get();
+        float physics_dt = app->airportLogistic->get_physic_step_time();
+        time_remaining += ts;
+        while (time_remaining > physics_dt) {
+            app->airportLogistic->step(ts);
+            time_remaining -= physics_dt;
+        }
     }
 
     virtual void OnUIRender() override {
 
         ImGui::Begin("Viewport");
-        ImGui::Button("Button");
+        // Draw the viewport here
+        // draw triangle
+
+
+
+
+
+
         ImGui::End();
         std::cout << "UIRender" << std::endl;
     }

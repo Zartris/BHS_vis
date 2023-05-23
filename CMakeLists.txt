@@ -38,7 +38,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g")
     #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=memory -g")
 #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=thread -g")
-    #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak -g")
+    #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak -g ")
     #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined -g")
 
     # comment this if you want to remove the verbose output
@@ -79,12 +79,13 @@ message("${Cyan}Attempting auto locate Vulkan using CMake......${ColourReset}")
 # This will return Boolean 'Vulkan_FOUND' indicating the status of find as success(ON) or fail(OFF).
 # Include directory path - 'Vulkan_INCLUDE_DIRS' and 'Vulkan_LIBRARY' with required libraries.
 find_package(Vulkan)
+
 # Try extracting VulkanSDK path from ${Vulkan_INCLUDE_DIRS}
 if (NOT ${Vulkan_INCLUDE_DIRS} STREQUAL "")
     set(VULKAN_PATH ${Vulkan_INCLUDE_DIRS})
     STRING(REGEX REPLACE "/Include" "" VULKAN_PATH ${VULKAN_PATH})
 endif ()
-
+message(STATUS "Vulkan_PATH: ${VULKAN_PATH}")
 if (NOT Vulkan_FOUND)
     # CMake may fail to locate the libraries but could be able to
     # provide some path in Vulkan SDK include directory variable

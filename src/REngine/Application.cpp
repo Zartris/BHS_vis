@@ -675,6 +675,9 @@ namespace REngine {
         m_Running = false;
     }
 
+    /**
+     * Gets the time in seconds since the application started
+     */
     float Application::GetTime() {
         return (float) glfwGetTime();
     }

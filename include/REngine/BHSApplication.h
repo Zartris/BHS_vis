@@ -14,6 +14,7 @@ namespace REngine {
 
         std::unique_ptr<bhs_game::AirportLogistic> airportLogistic;
 
+        static BHSApplication &Get();
 
     };
 }
